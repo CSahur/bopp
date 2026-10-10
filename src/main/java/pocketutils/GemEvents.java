@@ -3,6 +3,7 @@ package pocketutils;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -63,22 +64,20 @@ public class GemEvents {
         });
         UseItemCallback.EVENT.register((player, level, hand) -> {
             if (level.isClientSide()) return InteractionResult.PASS;
-            ItemStack stack = player.getMainHandItem();
+            ItemStack mainhand = player.getMainHandItem();
             ItemStack offhand = player.getOffhandItem();
-            if (player.isShiftKeyDown()){
-                    if (offhand.getItem() instanceof GemItem itemstack && !player.getCooldowns().isOnCooldown(offhand)) {
-                    player.getCooldowns().addCooldown(offhand, itemstack.cooldown);
-//                    System.out.println(itemstack.cooldown);
-                    List<String> abilities = areUsingAbility.computeIfAbsent(player.getUUID(), k -> new ArrayList<>());
-                    abilities.add(itemstack.name);
-                }
 
-            }else if (stack.getItem() instanceof GemItem item && !player.getCooldowns().isOnCooldown(stack)){
-                player.getCooldowns().addCooldown(stack, item.cooldown);
-//                System.out.println(item.cooldown);
-                List<String> abilities = areUsingAbility.computeIfAbsent(player.getUUID(), k -> new ArrayList<>());
+            if (offhand.getItem() instanceof GemItem itemstack && player.isShiftKeyDown() && !player.getCooldowns().isOnCooldown(offhand)){
+                    player.getCooldowns().addCooldown(offhand, itemstack.cooldown);
+                    List<String> abilities = areUsingAbility.computeIfAbsent(player.getUUID(), _ -> new ArrayList<>());
+                    abilities.add(itemstack.name);
+            }
+            else if (mainhand.getItem() instanceof GemItem item && !player.getCooldowns().isOnCooldown(mainhand)){
+                player.getCooldowns().addCooldown(mainhand, item.cooldown);
+                List<String> abilities = areUsingAbility.computeIfAbsent(player.getUUID(), _ -> new ArrayList<>());
                 abilities.add(item.name);
             }
+            else {return InteractionResult.FAIL;}
 
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack itemStack = player.getInventory().getItem(i);
@@ -87,7 +86,7 @@ public class GemEvents {
                 }
             }
 
-            return  InteractionResult.PASS;
+            return InteractionResult.SUCCESS;
         });
     }
 }
