@@ -64,23 +64,29 @@ public class GemEvents {
         UseItemCallback.EVENT.register((player, level, hand) -> {
             if (level.isClientSide()) return InteractionResult.PASS;
             ItemStack stack = player.getMainHandItem();
-            ItemStack stackOff = player.getOffhandItem();
+            ItemStack offhand = player.getOffhandItem();
             if (player.isShiftKeyDown()){
-                if (stackOff.getItem() instanceof GemItem itemOff && !player.getCooldowns().isOnCooldown(stackOff)) {
-                    player.getCooldowns().addCooldown(stackOff, itemOff.cooldown);
-                    System.out.println(itemOff.cooldown);
+                    if (offhand.getItem() instanceof GemItem itemstack && !player.getCooldowns().isOnCooldown(offhand)) {
+                    player.getCooldowns().addCooldown(offhand, itemstack.cooldown);
+//                    System.out.println(itemstack.cooldown);
                     List<String> abilities = areUsingAbility.computeIfAbsent(player.getUUID(), k -> new ArrayList<>());
-                    abilities.add(itemOff.name);
-                    return InteractionResult.FAIL;
+                    abilities.add(itemstack.name);
                 }
 
             }else if (stack.getItem() instanceof GemItem item && !player.getCooldowns().isOnCooldown(stack)){
                 player.getCooldowns().addCooldown(stack, item.cooldown);
-                System.out.println(item.cooldown);
+//                System.out.println(item.cooldown);
                 List<String> abilities = areUsingAbility.computeIfAbsent(player.getUUID(), k -> new ArrayList<>());
                 abilities.add(item.name);
-                return InteractionResult.FAIL;
             }
+
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                ItemStack itemStack = player.getInventory().getItem(i);
+                if (itemStack.getItem() instanceof GemItem item) {
+                    player.getCooldowns().addCooldown(itemStack, item.cooldown);
+                }
+            }
+
             return  InteractionResult.PASS;
         });
     }

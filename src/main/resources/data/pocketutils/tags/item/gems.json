@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "pocketutils:fire_gem",
+    "pocketutils:magic_gem",
+    "pocketutils:health_gem",
+    "pocketutils:gravity_gem",
+    "pocketutils:mining_gem"
+  ]
+}

@@ -48,8 +48,9 @@ public class GemItem extends Item {
             }
         }
         List<String> abilities = areUsingAbility.get(player.getUUID());
-        if (abilities != null && abilities.contains(name)) {
-            if (name.equals("fire")){
+        if (abilities == null || !abilities.contains(name)) {return;}
+        switch (name) {
+            case "fire" -> {
                 List<ParticleOptions> particleList = Arrays.asList(
                         ParticleTypes.FLAME,
                         ParticleTypes.SOUL_FIRE_FLAME,
@@ -70,10 +71,8 @@ public class GemItem extends Item {
                     }
                 }
             }
-            if (name.equals("magic")){
-                spawnSonicBoom(world, player, 4, 1);
-            }
-            if (name.equals("health")){
+            case "magic" -> spawnSonicBoom(world, player, 10, 1);
+            case "health" -> {
                 List<ParticleOptions> particleList = List.of(
                         new DustParticleOptions(0xF81139, 3.0f)
                 );
@@ -86,23 +85,21 @@ public class GemItem extends Item {
                         player.getBoundingBox().inflate(3.0, 0.5, 3.0)
                 );
                 for (LivingEntity e : nearbyList) {
-                    if (e != player){
+                    if (e != player) {
                         e.heal(6);
                         world.sendParticles(ParticleTypes.HEART, e.getX(), e.getBoundingBox().maxY + 0.2, e.getZ(), 1, 0, 0, 0, 0);
                     }
                 }
             }
-            if (name.equals("gravity")){
-                world.playSound(null,  entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BREEZE_JUMP, SoundSource.PLAYERS);
+            case "gravity" -> {
+                world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BREEZE_JUMP, SoundSource.PLAYERS);
                 Vec3 vel = player.getDeltaMovement();
                 player.setDeltaMovement(vel.x, 3.0, vel.z);
                 player.syncVelocity = true;
             }
-            if (name.equals("mining")){
-                miningBeam(world, player, 10, 0);
-            }
-            areUsingAbility.get(player.getUUID()).remove(name);
+            case "mining" -> miningBeam(world, player, 10, 0);
         }
+            areUsingAbility.get(player.getUUID()).remove(name);
     }
 
     public static ItemStack isGemActive(Player player, String effectId) {
