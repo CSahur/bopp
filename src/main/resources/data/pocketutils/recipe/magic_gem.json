@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#N#",
+    "DAD",
+    "#L#"
+  ],
+  "key": {
+    "#": "minecraft:cornflower",
+    "N": "minecraft:nether_star",
+    "D": "minecraft:diamond_block",
+    "A": "minecraft:amethyst_shard",
+    "L": "minecraft:lightning_rod"
+  },
+  "result": {
+    "id": "pocketutils:magic_gem",
+    "count": 1
+  }
+}

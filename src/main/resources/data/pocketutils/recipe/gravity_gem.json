@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#H#",
+    "IAI",
+    "WBW"
+  ],
+  "key": {
+    "#": "minecraft:feather",
+    "H": "minecraft:heavy_core",
+    "I": "minecraft:iron_block",
+    "A": "minecraft:amethyst_shard",
+    "W": "minecraft:wind_charge",
+    "B": "minecraft:breeze_rod"
+  },
+  "result": {
+    "id": "pocketutils:gravity_gem",
+    "count": 1
+  }
+}
