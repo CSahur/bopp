@@ -1,4 +1,4 @@
-package pocketutils;
+package pocketutils.item;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;

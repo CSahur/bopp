@@ -1,8 +1,9 @@
-package pocketutils;
+package pocketutils.item;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
+import pocketutils.PocketUtils;
 
 public class ModItemsIds {
     private static ResourceKey<Item> create(final String name) {

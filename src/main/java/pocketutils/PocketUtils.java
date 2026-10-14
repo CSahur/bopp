@@ -5,6 +5,8 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pocketutils.component.ModComponents;
+import pocketutils.item.ModItems;
 
 public class PocketUtils implements ModInitializer {
 	public static final String MOD_ID = "pocketutils";

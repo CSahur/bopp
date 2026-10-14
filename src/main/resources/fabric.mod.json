@@ -16,7 +16,8 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"pocketutils.PocketUtils"
+			"pocketutils.PocketUtils",
+			"pocketutils.component.InitializeModComponents"
 		],
 		"client": [
 			"pocketutils.PocketutilsClient"
