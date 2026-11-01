@@ -19,13 +19,13 @@ public class ModItems {
             ModItemsIds.MINING_GEM, properties -> new GemItems(properties, MobEffects.HASTE,1, "mining", 400), new Item.Properties().stacksTo(1).fireResistant()); //400
 
     public static final Item GRAVITY_GEM = register(
-            ModItemsIds.GRAVITY_GEM, properties -> new GemItems(properties, null,0, "gravity", 500), new Item.Properties().stacksTo(1).fireResistant()); //500
+            ModItemsIds.GRAVITY_GEM, properties -> new GemItems(properties, null,0, "gravity", 300), new Item.Properties().stacksTo(1).fireResistant()); //500
 
     public static final Item MAGIC_GEM = register(
             ModItemsIds.MAGIC_GEM, properties -> new GemItems(properties, null,0, "magic", 500), new Item.Properties().stacksTo(1).fireResistant().useCooldown(100)); //500
 
     public static final Item FIRE_GEM = register(
-            ModItemsIds.FIRE_GEM, properties -> new GemItems(properties, MobEffects.FIRE_RESISTANCE,1, "fire", 300), new Item.Properties().stacksTo(1).fireResistant().useCooldown(160)); //300
+            ModItemsIds.FIRE_GEM, properties -> new GemItems(properties, MobEffects.FIRE_RESISTANCE,1, "fire", 60), new Item.Properties().stacksTo(1).fireResistant().useCooldown(160)); //300
 
     public static void initialize() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES)

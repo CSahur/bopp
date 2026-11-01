@@ -1,6 +1,7 @@
 package pocketutils.item;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -8,6 +9,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -141,7 +143,7 @@ public class GemItems extends Item {
                 spawnParticleRing(world, player, 3.0, 5, 100, 1, particleList);
                 List<LivingEntity> nearbyList = world.getEntitiesOfClass(
                         LivingEntity.class,
-                        player.getBoundingBox().inflate(3.0, 0.0, 3.0)
+                        player.getBoundingBox().inflate(3.0, 1.5, 3.0)
                 );
                 world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS);
                 world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLAZE_DEATH, SoundSource.PLAYERS);
@@ -247,7 +249,14 @@ public class GemItems extends Item {
 
             for (LivingEntity e : entities) {
                 if (e != player) {
-                    e.hurtServer(world, world.damageSources().sonicBoom(player), 10f);
+
+                    if (e instanceof ServerPlayer) {
+                        e.hurtServer(world, world.damageSources().sonicBoom(player), 3f);
+                    }
+                    else {
+                        e.hurtServer(world, world.damageSources().sonicBoom(player), 6f);
+                    }
+
                     e.push(dir.scale(2));
                 }
             }
@@ -278,4 +287,5 @@ public class GemItems extends Item {
             });
         }, tickDelay, range);
     }
+    
 }
